@@ -10,7 +10,8 @@ import {
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  ContentChild
 } from '@angular/core';
 
 @Component({
@@ -31,6 +32,7 @@ export class ServerElementComponent
     OnDestroy {
   @Input('srvElement') element: { type: string; name: string; content: string };
   @Input() name: string;
+  @ContentChild('contentParagraph') paragraph;
 
   constructor() {
     console.log('constructor called');
@@ -41,7 +43,7 @@ export class ServerElementComponent
   }
 
   ngOnInit() {
-    console.log('ngOnInitcalled');
+    console.log('ngOnInitcalled', 1, this.paragraph.nativeElement.textContent);
   }
 
   // you can run this hook without importing it if you want
@@ -50,7 +52,11 @@ export class ServerElementComponent
   }
 
   ngAfterContentInit() {
-    console.log('ngAfterContentInit');
+    console.log(
+      'ngAfterContentInit',
+      2,
+      this.paragraph.nativeElement.textContent
+    );
   }
 
   ngAfterContentChecked() {
